@@ -1,0 +1,32 @@
+[
+    {
+      "name" : "com.amazonaws.services.s3.event.S3EventNotification",
+      "allDeclaredConstructors" : true,
+      "allPublicConstructors" : true,
+      "allDeclaredMethods" : true,
+      "allPublicMethods" : true,
+      "allDeclaredFields" : true,
+      "allPublicFields" : true
+    },
+    {
+        "name" : "com.amazonaws.services.lambda.runtime.events.S3Event",
+        "allDeclaredConstructors" : true,
+        "allPublicConstructors" : true,
+        "allDeclaredMethods" : true,
+        "allPublicMethods" : true,
+        "allDeclaredFields" : true,
+        "allPublicFields" : true
+    },
+    {
+        "name" : "com.amazonaws.services.s3.event.S3EventNotification$S3EventNotificationRecord",
+        "allDeclaredConstructors" : true,
+        "allPublicConstructors" : true,
+        "allDeclaredMethods" : true,
+        "allPublicMethods" : true,
+        "allDeclaredFields" : true,
+        "allPublicFields" : true
+    }
+]
+
+
+

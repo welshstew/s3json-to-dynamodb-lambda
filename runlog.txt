@@ -1,0 +1,7 @@
+Init Duration: 1444.71 ms  Duration: 179.70 ms     Billed Duration: 200 ms Memory Size: 256 MB      Max Memory Used: 108 MB
+Init Duration: 197.74 ms   Duration: 6.63 ms       Billed Duration: 100 ms Memory Size: 128 MB     Max Memory Used: 40 MB
+
+
+---
+REPORT RequestId: 770662da-ef33-1863-7dd8-703e11cfd2bf  Init Duration: 1751.06 ms      Duration: 283.36 ms      Billed Duration: 300 ms Memory Size: 256 MB     Max Memory Used: 117 MB
+
