@@ -1,5 +1,7 @@
 package com.codergists;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.jboss.logging.Logger;
@@ -13,58 +15,61 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.s3.event.S3EventNotification;
 import java.io.ByteArrayOutputStream;
 
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+
+
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 
 
 @Named("S3toDynamoDB")
-public class S3toDynamoDB implements RequestHandler<S3EventNotification, OutputObject> {
+public class S3toDynamoDB implements RequestHandler<S3EventNotification, Fruit> {
 
     @Inject
     S3Client s3;
 
     @Inject
-    ProcessingService service;
-
-    @Inject
     FruitSyncService fruitSyncer;
 
     private static final Logger LOGGER = Logger.getLogger(S3toDynamoDB.class);
+    private Jsonb jsonb;
 
+    @PostConstruct
+    public void createJsonBuilder(){
+        jsonb = JsonbBuilder.create();
+    }
 
+    @PreDestroy
+    public void destroyJsonBuilder() throws Exception {
+        jsonb.close();
+    }
     
     //Map<String,Object> input
     // public OutputObject handleRequest(final S3Event input, final Context context) {
         //final Map<String,Object>
     @Override
-    public OutputObject handleRequest(final S3EventNotification input, final Context context) {
+    public Fruit handleRequest(final S3EventNotification input, final Context context) {
 
         // S3EventNotification.S3EventNotificationRecord record = input.getRecords().get(0);
-
-        LOGGER.info(input.toString());
         LOGGER.info(input.getRecords().get(0).getS3().getBucket().getName());
         LOGGER.info(input.getRecords().get(0).getS3().getObject().getUrlDecodedKey());
 
         // S3EventNotificationRecord record = (S3EventNotificationRecord)input;
         // String thing = record.getS3().getBucket().getName();
-        String bucketName = "quarkus.s3.quickstart"; // input.getRecords().get(0).getS3().getBucket().getName();
-        String keyName = "test1.json"; //input.getRecords().get(0).getS3().getObject().getUrlDecodedKey();
+        String bucketName = input.getRecords().get(0).getS3().getBucket().getName(); // "quarkus.s3.quickstart"; // 
+        String keyName = input.getRecords().get(0).getS3().getObject().getUrlDecodedKey(); //"test1.json"; //
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        GetObjectResponse object = s3.getObject(buildGetRequest(bucketName, keyName), ResponseTransformer.toOutputStream(baos));
+        GetObjectResponse getObjectResponse = s3.getObject(buildGetRequest(bucketName, keyName), ResponseTransformer.toOutputStream(baos));
+        
+        String json = baos.toString();
+        LOGGER.info("Output:" + json);
+ 
+        Fruit f = jsonb.fromJson(json, Fruit.class);
+        LOGGER.info("Created Fruit " + f);
+        fruitSyncer.add(f);
 
-        //  LOGGER.info(baos.toString());
-
-
-        final Fruit fruit = fruitSyncer.get("Banana");
-        LOGGER.info(fruit.getDescription());
-
-
-        final OutputObject outputObject = new OutputObject();
-        outputObject.setRequestId("requestId");
-        outputObject.setResult("hello Bill");
-
-        return outputObject;
-
+        return f;
     }
 
     protected GetObjectRequest buildGetRequest(String bucketName, String objectKey) {
