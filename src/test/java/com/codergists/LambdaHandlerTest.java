@@ -8,9 +8,6 @@ import org.jboss.logging.Logger;
 import io.quarkus.amazon.lambda.test.LambdaClient;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.common.QuarkusTestResource;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import com.amazonaws.services.lambda.runtime.events.S3Event;
 
 @QuarkusTest
 @QuarkusTestResource(S3Resource.class)
@@ -18,7 +15,6 @@ import com.amazonaws.services.lambda.runtime.events.S3Event;
 public class LambdaHandlerTest {
 
     private static final Logger LOGGER = Logger.getLogger(LambdaHandlerTest.class);
-
 
     @Test
     public void testSimpleLambdaSuccess() throws Exception {

@@ -12,13 +12,11 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.http.urlconnection.UrlConnectionHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import com.amazonaws.services.s3.model.ObjectMetadata;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 
 import java.io.File;
-import java.io.IOException;
 
 
 public class S3Resource implements QuarkusTestResourceLifecycleManager {
