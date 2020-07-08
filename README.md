@@ -87,21 +87,21 @@ Invoking not.used.in.provided.runtime (provided)
 Decompressing /home/user/Documents/quarkus/s3json-to-dynamodb-lambda/target/function.zip
 
 Fetching lambci/lambda:provided Docker container image......
-Mounting /tmp/tmpb1sf0vta as /var/task:ro,delegated inside runtime container
+Mounting /tmp/tmpnm1dkdrl as /var/task:ro,delegated inside runtime container
 __  ____  __  _____   ___  __ ____  ______ 
  --/ __ \/ / / / _ | / _ \/ //_/ / / / __/ 
  -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \   
 --\___\_\____/_/ |_/_/|_/_/|_|\____/___/   
-2020-07-08 14:56:41,635 INFO  [io.quarkus] (main) s3json-to-dynamodb-lambda 1.0-SNAPSHOT native (powered by Quarkus 1.5.2.Final) started in 0.026s. Listening on: http://0.0.0.0:8080
-2020-07-08 14:56:41,635 INFO  [io.quarkus] (main) Profile prod activated. 
-2020-07-08 14:56:41,635 INFO  [io.quarkus] (main) Installed features: [amazon-dynamodb, amazon-lambda, amazon-s3, cdi, resteasy-jsonb]
-START RequestId: 29d9cf40-42ad-1510-ce4d-68934968b816 Version: $LATEST
-2020-07-08 14:56:41,643 INFO  [com.cod.S3toDynamoDB] (Lambda Thread) quarkus.s3.quickstart
-2020-07-08 14:56:41,643 INFO  [com.cod.S3toDynamoDB] (Lambda Thread) durian.json
-2020-07-08 14:56:42,142 INFO  [com.cod.S3toDynamoDB] (Lambda Thread) Output:{ "name" : "Durian", "description":"Smelly" }
-2020-07-08 14:56:42,142 INFO  [com.cod.S3toDynamoDB] (Lambda Thread) Created Fruit com.codergists.Fruit@7f01fab83808
-END RequestId: 29d9cf40-42ad-1510-ce4d-68934968b816
-REPORT RequestId: 29d9cf40-42ad-1510-ce4d-68934968b816	Init Duration: 241.52 ms	Duration: 1175.47 ms	Billed Duration: 1200 ms	Memory Size: 128 MB	Max Memory Used: 59 MB	
+2020-07-08 15:13:38,429 INFO  [io.quarkus] (main) s3json-to-dynamodb-lambda 1.0-SNAPSHOT native (powered by Quarkus 1.5.2.Final) started in 0.024s. Listening on: http://0.0.0.0:8080
+2020-07-08 15:13:38,430 INFO  [io.quarkus] (main) Profile prod activated. 
+2020-07-08 15:13:38,430 INFO  [io.quarkus] (main) Installed features: [amazon-dynamodb, amazon-lambda, amazon-s3, cdi, resteasy-jsonb]
+START RequestId: 9205182b-4469-1e42-e761-bc85d58d7a79 Version: $LATEST
+2020-07-08 15:13:38,438 INFO  [com.cod.S3toDynamoDB] (Lambda Thread) quarkus.s3.quickstart
+2020-07-08 15:13:38,438 INFO  [com.cod.S3toDynamoDB] (Lambda Thread) durian.json
+2020-07-08 15:13:38,468 INFO  [com.cod.S3toDynamoDB] (Lambda Thread) Output:{ "name" : "Durian", "description":"Smelly" }
+2020-07-08 15:13:38,469 INFO  [com.cod.S3toDynamoDB] (Lambda Thread) Created Fruit com.codergists.Fruit@7f092ac83138
+END RequestId: 9205182b-4469-1e42-e761-bc85d58d7a79
+REPORT RequestId: 9205182b-4469-1e42-e761-bc85d58d7a79	Init Duration: 181.16 ms	Duration: 150.95 ms	Billed Duration: 200 ms	Memory Size: 128 MB	Max Memory Used: 59 MB	
 
 {"name":"Durian","description":"Smelly"}
 ```
