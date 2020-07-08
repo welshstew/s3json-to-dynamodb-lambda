@@ -47,3 +47,61 @@ https://quarkus.io/guides/cdi-reference
  at [Source: (sun.net.www.protocol.http.HttpURLConnection$HttpInputStream); line: 4, column: 11] (through reference chain: com.amazonaws.services.lambda.runtime.events.S3Event["Records"]->java.util.ArrayList[0])
         at com.fasterxml.jackson.databind.DeserializationContext.reportBadDefinition(DeserializationContext.java:1592)
 ```
+
+## Confirming Input
+
+Run the following in the local DynamoDB Shell:
+
+```
+var dynamodb = new AWS.DynamoDB({endpoint: 'http://localhost:8000' })
+
+var params = {
+    TableName: 'QuarkusFruits',
+    Limit: 1, // optional (limit the number of items to evaluate)
+    Select: 'ALL_ATTRIBUTES', // optional (ALL_ATTRIBUTES | ALL_PROJECTED_ATTRIBUTES | 
+                              //           SPECIFIC_ATTRIBUTES | COUNT)
+    ReturnConsumedCapacity: 'NONE', // optional (NONE | TOTAL | INDEXES)
+};
+dynamodb.scan(params, function(err, data) {
+    if (err) ppJson(err); // an error occurred
+    else ppJson(data); // successful response
+});
+```
+
+
+As working:
+
+JVM Mode:
+```
+REPORT RequestId: c817e315-621b-16bc-b0e5-169e0d87f06a	
+Init Duration: 1939.45 ms	Duration: 410.97 ms
+	Billed Duration: 500 ms	
+    Memory Size: 512 MB	Max Memory Used: 133 MB
+```
+
+Native mode:
+
+```
+user@user-ubuntuvm:~/Documents/quarkus/s3json-to-dynamodb-lambda$ sam local invoke --template target/sam.native.yaml --event s3-event-payload.json
+Invoking not.used.in.provided.runtime (provided)
+Decompressing /home/user/Documents/quarkus/s3json-to-dynamodb-lambda/target/function.zip
+
+Fetching lambci/lambda:provided Docker container image......
+Mounting /tmp/tmpb1sf0vta as /var/task:ro,delegated inside runtime container
+__  ____  __  _____   ___  __ ____  ______ 
+ --/ __ \/ / / / _ | / _ \/ //_/ / / / __/ 
+ -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \   
+--\___\_\____/_/ |_/_/|_/_/|_|\____/___/   
+2020-07-08 14:56:41,635 INFO  [io.quarkus] (main) s3json-to-dynamodb-lambda 1.0-SNAPSHOT native (powered by Quarkus 1.5.2.Final) started in 0.026s. Listening on: http://0.0.0.0:8080
+2020-07-08 14:56:41,635 INFO  [io.quarkus] (main) Profile prod activated. 
+2020-07-08 14:56:41,635 INFO  [io.quarkus] (main) Installed features: [amazon-dynamodb, amazon-lambda, amazon-s3, cdi, resteasy-jsonb]
+START RequestId: 29d9cf40-42ad-1510-ce4d-68934968b816 Version: $LATEST
+2020-07-08 14:56:41,643 INFO  [com.cod.S3toDynamoDB] (Lambda Thread) quarkus.s3.quickstart
+2020-07-08 14:56:41,643 INFO  [com.cod.S3toDynamoDB] (Lambda Thread) durian.json
+2020-07-08 14:56:42,142 INFO  [com.cod.S3toDynamoDB] (Lambda Thread) Output:{ "name" : "Durian", "description":"Smelly" }
+2020-07-08 14:56:42,142 INFO  [com.cod.S3toDynamoDB] (Lambda Thread) Created Fruit com.codergists.Fruit@7f01fab83808
+END RequestId: 29d9cf40-42ad-1510-ce4d-68934968b816
+REPORT RequestId: 29d9cf40-42ad-1510-ce4d-68934968b816	Init Duration: 241.52 ms	Duration: 1175.47 ms	Billed Duration: 1200 ms	Memory Size: 128 MB	Max Memory Used: 59 MB	
+
+{"name":"Durian","description":"Smelly"}
+```
