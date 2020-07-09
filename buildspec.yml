@@ -6,11 +6,12 @@ phases:
       java: corretto11
   build:
     commands: 
+      - printenv
       - docker version
       - java -version
       - mvn -version
       - echo Build started on `date`
-      - mvn package -Pnative -Dnative-image.docker-build=true -Dquarkus.native.enable-jni=true
+#       - mvn package -Pnative -Dnative-image.docker-build=true -Dquarkus.native.enable-jni=true
   post_build:
     commands:
       - echo Build completed on `date`
