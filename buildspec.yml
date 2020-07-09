@@ -9,7 +9,7 @@ phases:
       - java -version
       - mvn -version
       - echo Build started on `date`
-      - mvn package 
+      - mvn package -DskipTests
   post_build:
     commands:
       - echo Build completed on `date`
